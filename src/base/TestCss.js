@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./css/index.css";
+import Navbar from "../Navbar";
 export default class TestCss extends Component {
   myRef = React.createRef();
   myListRef = React.createRef();
@@ -90,6 +91,8 @@ export default class TestCss extends Component {
         <div className={this.state.list.length === 0 ? "" : "hidden"}>
           暂无待办事项
         </div>
+
+        <Navbar title="商品"/>
       </div>
     );
   }

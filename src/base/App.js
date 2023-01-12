@@ -29,13 +29,14 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <CinemaSelect />
+
         <ClaseT />
         <Navbar />
         <Swiper />
         <Tabbar> </Tabbar>
         <TestCss></TestCss>
         <Game />
-        <CinemaSelect/>
       </div>
     );
   }

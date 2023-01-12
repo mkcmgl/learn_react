@@ -4,6 +4,8 @@
  */
 import React, { Component } from 'react'
 import axios from 'axios'
+import BScroll from 'better-scroll';
+
 export default class Cinema extends Component {
   constructor() {
     super();
@@ -35,6 +37,10 @@ export default class Cinema extends Component {
         cinemaList: res.data.data.cinemas,
         bakCinemaList: res.data.data.cinemas,
       });
+      console.log(1);
+
+    new BScroll(".cinemaData");
+
     });
   }
 
@@ -43,24 +49,43 @@ export default class Cinema extends Component {
     return (
       <div>
         <input className="inputCinema" onInput={this.handleInput} />
-
-        {this.state.cinemaList.map((item) => (
-          <dl key={item.cinemaId}>
-            <dt>{item.name}</dt>
-            <dd>{item.address}</dd>
-          </dl>
-        ))}
+        <div
+          className="cinemaData"
+          style={{
+            height: "500px",
+            overflow: "hidden",
+          }}
+        >
+          <div className="kerwincontent">
+            {this.state.cinemaList.map((item) => (
+              <dl key={item.cinemaId}>
+                <dt>{item.name}</dt>
+                <dd>{item.address}</dd>
+              </dl>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
-  handleInput = (e) => { 
+  handleInput = (e) => {
     var newList = this.state.bakCinemaList.filter((item) => {
       return (
         item.name.toUpperCase().includes(e.target.value.toUpperCase()) ||
         item.address.toUpperCase().includes(e.target.value.toUpperCase())
       );
     });
-    this.setState({ cinemaList: newList })
-      console.log(newList)
-  }
+    this.setState({ cinemaList: newList }, () => {
+
+     });
+    console.log(newList);
+  };
+  /*
+    setState处在同步的逻辑中，  异步更新状态，更新真实dom
+    setState处在异步的逻辑中，  同步更新状态，同步更新真实dom,
+
+    setState 接受第二个参数， 第二个参数式回调函数， 状态和dom更新完后就会被触发。
+
+    
+*/
 }
