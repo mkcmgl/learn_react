@@ -34,7 +34,7 @@ export default class TestCss extends Component {
       <div>
         {10 > 20 ? "a" : "b"}
         <div style={styles}>111</div>
-        <div className="active">3333333333333333333333</div>
+        <div className="activeT">3333333333333333333333</div>
         <div id="myapp">5555555555555555</div>
         <label htmlFor="username">用户名：</label>
         <input type="text" id="username" />
@@ -73,12 +73,23 @@ export default class TestCss extends Component {
 
         <input ref={this.myListRef} />
 
-        <button onClick={this.handleClick2}> add2 </button>
-        <ul>
+        <button onClick={this.handleAddList}> addList </button>
+        <ul >
           {this.state.list.map((item, index) => (
-            <li key={item.id}>{item}</li>
+            <li key={item.id}>
+              {item.text}
+              <button onClick={() => this.handleDelClick(index)}>del</button>
+            </li>
           ))}
         </ul>
+
+        {/* {this.state.list.length===0 ? <div>暂无待办事项</div>:null} */}
+
+        {/* { this.state.list.length===0  && <div>暂无待办事项</div>} */}
+
+        <div className={this.state.list.length === 0 ? "" : "hidden"}>
+          暂无待办事项
+        </div>
       </div>
     );
   }
@@ -98,7 +109,7 @@ export default class TestCss extends Component {
     console.log("click4");
   };
   handleAddList = () => {
-    console.log("click2", this.myref.current.value);
+    // console.log("click2", this.myListRef.current.value);
 
     // this.setState
 
@@ -106,13 +117,21 @@ export default class TestCss extends Component {
     // this.state.list.push(this.myref.current.value)
 
     let newlist = [...this.state.list];
-    newlist.push({
-      id: Math.random() * 100000000, //生成不同id的函数
-      mytext: this.myref.current.value,
+    newlist.unshift({
+      id: Math.round(Math.random() * 100000000), //生成不同id的函数
+      text: this.myListRef.current.value,
     });
+    console.log(newlist);
     // console.log()
     this.setState({
       list: newlist,
     });
+    this.myListRef.current.value = "";
+  };
+  handleDelClick = (index) => {
+    console.log(this);
+    let newList = this.state.list.concat();
+    newList.splice(index, 1);
+    this.setState({ list: newList });
   };
 }

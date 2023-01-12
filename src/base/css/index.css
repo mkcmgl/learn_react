@@ -1,6 +1,11 @@
-.active{
+  .activeT {
     background-color: rgb(0, 132, 255);
 }
-#mydataP{
+
+#mydataP {
     background-color: green;
+}
+
+.hidden {
+    display: none;
 }
