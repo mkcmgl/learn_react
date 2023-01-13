@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ClaseT from "./KerwinApp";
 import TestCss from "./TestCss";
 import Game from "./Game";
+import IsControler from "./IsControler";
+
 import CinemaSelect from "./CinemaSelect";
 class Child extends Component {
   render() {
@@ -33,10 +35,14 @@ export default class App extends Component {
 
         <ClaseT />
         <Navbar />
+       
+
         <Swiper />
         <Tabbar> </Tabbar>
         <TestCss></TestCss>
         <Game />
+        <IsControler/>
+
       </div>
     );
   }

@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.Center {
+    list-style: none;
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    background-color: white;
+}
+
+.Center li {
+    flex: 1;
+    text-align: center;
+}
+
+
+.Center .active {
+    color: red;
+}
+
+dl {
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    ;
+}
+
+dl dt {
+    font-size: 20px;
+}
+
+dl dd {
+    font-size: 12px;
+    color: gray;
+}
+
+.inputCinema {
+    width: 99%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

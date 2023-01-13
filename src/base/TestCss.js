@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 import "./css/index.css";
 import Navbar from "../Navbar";
+import Sidebar from "../Sidebar";
+
 export default class TestCss extends Component {
-  myRef = React.createRef();
-  myListRef = React.createRef();
+  // myRef = React.createRef();
+  // myListRef = React.createRef();
   constructor() {
     super();
     this.state = {
+      myList: "",
+      myListDel:'',
       myShow: true,
       list: [
         {
           id: 1,
           text: "1111",
+          isChecked: false
         },
         {
           id: 2,
           text: "2222",
+          isChecked: false
         },
         {
           id: 3,
           text: "3333",
+          isChecked: false
         },
       ],
     };
@@ -51,12 +58,13 @@ export default class TestCss extends Component {
         </button>
         <button onClick={this.handleClick3}>add3</button>
         <br />
-        <input ref={this.myRef} />
+        <input value={this.state.myList} onChange={(e) => { this.setState({
+          myList:e.target.value
+        })}} />
         <button
           onClick={() => {
             // console.log("ref1", this.refs.myRef.value);
-            console.log("ref1", this.myRef);
-            console.log("ref1", this.myRef.current.value);
+            console.log("ref1", this.state.myList);
           }}
         >
           ref1
@@ -71,11 +79,11 @@ export default class TestCss extends Component {
         </button>
         <br />
         {/* // var newlist = this.state.list.map(item=><li>{item}</li>) */}
-
-        <input ref={this.myListRef} />
-
+        <input value={this.state.myListDel} onChange={(e) => { this.setState({
+          myListDel:e.target.value
+        })}}/>
         <button onClick={this.handleAddList}> addList </button>
-        <ul >
+        <ul>
           {this.state.list.map((item, index) => (
             <li key={item.id}>
               {item.text}
@@ -83,16 +91,18 @@ export default class TestCss extends Component {
             </li>
           ))}
         </ul>
-
         {/* {this.state.list.length===0 ? <div>暂无待办事项</div>:null} */}
-
         {/* { this.state.list.length===0  && <div>暂无待办事项</div>} */}
-
         <div className={this.state.list.length === 0 ? "" : "hidden"}>
           暂无待办事项
         </div>
-
-        <Navbar title="商品"/>
+        <br />
+        ****props
+        <br />
+        <Navbar title="商品" btnShow={true} />
+        <Sidebar bg="yellow" position="right" />
+        <br />
+        *****
       </div>
     );
   }
@@ -118,18 +128,20 @@ export default class TestCss extends Component {
 
     // 不要直接修改状态， 可能会造成不可预期的问题。
     // this.state.list.push(this.myref.current.value)
-
+    if (this.state.myListDel === '') {
+      return alert('Please input data')
+    }
     let newlist = [...this.state.list];
     newlist.unshift({
       id: Math.round(Math.random() * 100000000), //生成不同id的函数
-      text: this.myListRef.current.value,
+      text: this.state.myListDel,
     });
     console.log(newlist);
     // console.log()
     this.setState({
       list: newlist,
+      myListDel: ''
     });
-    this.myListRef.current.value = "";
   };
   handleDelClick = (index) => {
     console.log(this);
