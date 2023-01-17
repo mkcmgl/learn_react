@@ -23,7 +23,7 @@ export default class LifeCycle extends Component {
         }
 
     }
-    
+     
     componentDidUpdate(prevProps, prevState, value) { 
         console.log(prevProps, prevState, value, '1111')
         this.myRefLife.current.scrollTop += this.myRefLife.current.scrollHeight - value.value;
