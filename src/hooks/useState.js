@@ -1,58 +1,79 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef, useContext } from 'react'
 import axios from 'axios'
+const GlobalContext = React.createContext() 
 
 export default function App() {
     const [text, setText] = useState('')
     const [list, setList] = useState(["aa", "bb", "cc"])
-    const [type,setType] = useState(1)
-    const handleChange=(e)=>{
-        setText(e.target.value)
-    }
-    const handleAdd = () => { 
-        console.log(text)
-        setList([...list, text])
-        setText("")
-    }
-    const handleDel = (index) => {
-        console.log(index)
-        var newList = [...list]
-        
-        newList.splice(index, 1)
-        console.log(newList)
-        setList(newList)
-    }
-    useEffect(() => { },[])
-  return (
-    <div>
-          <input onChange={handleChange} />
-          <button onClick={handleAdd} >add</button>
-          <ul>
-              {
-                  list.map((item, index) =>
-                      <li key={index}>
-                          {item}
-                          <button onClick={()=>handleDel(index)}>del</button>
-                  </li>)
-              }
-          </ul>
-          {!list.length && <div>暂无待办事项</div>}
-          <ul>
-              <li onClick={() => {
-                  setType(1)
-              }}>正在热映</li>
-              <li onClick={() => {
-                  setType(2)
-              }}>即将上映</li>
-          </ul>
+    const [type, setType] = useState(1)
+    // const handleChange = useCallback((e) => {
+    //     setText(e.target.value)
+    // }, []
+    // )
 
-          <FilmList type={type}></FilmList>
-    </div>
-  )
+    const handleAdd = useCallback(
+        () => {
+            console.log(text)
+            setList([...list, myRef.current.value])
+            myRef.current.value =''
+        },
+        [text, list]
+    )
+    const handleDel = useMemo(
+        ()=>(index) => {
+            console.log(index)
+            var newList = [...list]
+
+            newList.splice(index, 1)
+            console.log(newList)
+            setList(newList)
+        },
+        [list]
+    ) 
+    useEffect(() => { }, [])
+    const myRef = useRef()
+    return (
+        <GlobalContext.Provider
+            value={{
+                call: "打电话",
+                sms: "短信",  
+            }}>
+        <div>
+            <input
+                // onChange={handleChange}
+                ref={myRef}
+            />
+            <button onClick={handleAdd} >add</button>
+            <ul>
+                {
+                    list.map((item, index) =>
+                        <li key={index}>
+                            {item}
+                            <button onClick={() => handleDel(index)} >del</button>
+                        </li>)
+                }
+            </ul>
+            {!list.length && <div>暂无待办事项</div>}
+            <ul>
+                <li onClick={() => {
+                    setType(1)
+                }}>正在热映</li>
+                <li onClick={() => {
+                    setType(2)
+                }}>即将上映</li>
+            </ul>
+
+            <FilmList type={type}></FilmList>
+            </div>
+        </GlobalContext.Provider>
+    )
 }
 
 
 function FilmList(props) {
     const [list, setListData] = useState([])
+    const value = useContext(GlobalContext)
+    console.log(value);
     useEffect(() => {
         if (props.type === 1) {
             //请求卖座正在热映的数据
@@ -99,4 +120,3 @@ function FilmList(props) {
     </ul>
 }
 
-  

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import App from "./hooks/useState";
+import App from "./hooks/useReducer";
 
 
 
