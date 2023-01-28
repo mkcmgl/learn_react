@@ -5,13 +5,16 @@
 import React, { Component } from 'react'
 import Nowplaying from './films/Nowplaying'
 import Comingsoon from './films/Comingsoon'
-import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
+import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
+
 import style from './css/Film.module.css'
+
+console.log(style)
 export default class Films extends Component {
     render() {
         return (
-            <div className={style.film + " aaaa"}>
-                <div style={{ height: "200px", background: "yellow" }}>大轮播</div>
+            <div className={style.film+" aaaa"}>
+                <div style={{height:"200px",background:"yellow"}}>大轮播</div>
 
                 <ul>
                     <li>
@@ -23,11 +26,11 @@ export default class Films extends Component {
                 </ul>
 
                 {/* 路由配置 嵌套路由 */}
-                {/* <Nowplaying/> */}
+            {/* <Nowplaying/> */}
                 <Switch>
-                    <Route path="/films/nowplaying" component={Nowplaying} />
-                    <Route path="/films/comingsoon" component={Comingsoon} />
-                    <Redirect from="/films" to="/films/nowplaying" />
+                    <Route path="/films/nowplaying" component={Nowplaying}/>
+                    <Route path="/films/comingsoon" component={Comingsoon}/>
+                    <Redirect from="/films" to="/films/nowplaying"/> 
                 </Switch>
 
             </div>
