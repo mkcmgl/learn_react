@@ -3,13 +3,13 @@
  * @公众号: 大前端私房菜
  */
 import React, { Component } from 'react'
-import { HashRouter as Router,Redirect,Route,Switch} from 'react-router-dom'
-import Films from '../views/Films'
-import Cinemas from '../views/Cinemas'
-import Center from '../views/Center'
-import Detail from '../views/Detail'
-import NotFound from '../views/NotFound'
-import Login from '../views/Login'
+import { HashRouter as Router,Redirect,Route,Switch,BrowserRouter} from 'react-router-dom'
+import Films from '../pages/Films'
+import Cinemas from '../pages/Cinemas'
+import Center from '../pages/Center'
+import Detail from '../pages/Detail'
+import NotFound from '../pages/NotFound'
+import Login from '../pages/Login'
 
 function isAuth(){
     return localStorage.getItem("token")
@@ -31,7 +31,7 @@ export default class IndexRouter extends Component {
                     {/* <Route path="/center" component={Center} /> */}
                     <Route path="/center" render={(props)=>{
                         // console.log(props)
-                        return isAuth()?<Center myname="kerwin"/>:<Redirect to="/login"/>
+                        return isAuth() ? <Center myname="kerwin" {...props} />:<Redirect to="/login"/>
                     }}/>
 
                     <Route path="/login" component={Login}/>
