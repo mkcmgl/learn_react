@@ -1,14 +1,15 @@
-
+ 
 import React, { Component } from 'react'
 import Nowplaying from './films/Nowplaying'
 import Comingsoon from './films/Comingsoon'
-import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 import style from './css/Film.module.css'
-import { Swiper, Tabs } from 'antd-mobile'
+import { Swiper,Tabs } from 'antd-mobile'
 import axios from 'axios'
-export default class Films extends Component {
 
+console.log(style)
+export default class Films extends Component {
 
     state = {
         looplist: []
@@ -23,26 +24,20 @@ export default class Films extends Component {
                 'X-Host': 'mall.film-ticket.film.list'
             }
         }).then(res => {
-            console.log(res.data)
+            console.log(res.data.data.films)
 
             this.setState({
                 looplist: res.data.data.films
             })
         })
     }
+
+
     render() {
         return (
-            <div className={style.film+" aaaa"}>
+            <div className={style.film + " aaaa"}>
                 {/* <div style={{height:"200px",background:"yellow"}}>大轮播</div> */}
 
-                {/* <ul>
-                    <li>
-                        <NavLink to="/films/nowplaying" activeClassName={style.mglactive}>正在热映</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/films/comingsoon" activeClassName={style.mglactive}>即将上映</NavLink>
-                    </li>
-                </ul> */}
                 <Swiper autoplay={true} loop={true}>
                     {
                         this.state.looplist.map(item =>
@@ -53,13 +48,23 @@ export default class Films extends Component {
                     }
 
                 </Swiper>
-                <div style={{ position: "sticky", top: 0, background: "white" }}>
-                    <Tabs onChange={(value) => {
+
+                {/* <ul>
+                    <li>
+                        <NavLink to="/films/nowplaying" activeClassName={style.mglactive}>正在热映</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/films/comingsoon" activeClassName={style.mglactive}>即将上映</NavLink>
+                    </li>
+                </ul> */}
+
+                <div  style={{position:"sticky",top:0,background:"white"}}>
+                    <Tabs onChange={(value)=>{
                         // console.log(value)
 
                         this.props.history.push(value)
                     }} activeKey={this.props.location.pathname}>
-                        <Tabs.Tab title='正在热映' key='/films/nowplaying'>
+                        <Tabs.Tab title='正在热映' key='/films/nowplaying'> 
                         </Tabs.Tab>
                         <Tabs.Tab title='即将上映' key='/films/comingsoon'>
                         </Tabs.Tab>
@@ -67,11 +72,11 @@ export default class Films extends Component {
                 </div>
 
                 {/* 路由配置 嵌套路由 */}
-            {/* <Nowplaying/> */}
+                {/* <Nowplaying/> */}
                 <Switch>
-                    <Route path="/films/nowplaying" component={Nowplaying}/>
-                    <Route path="/films/comingsoon" component={Comingsoon}/>
-                    <Redirect from="/films" to="/films/nowplaying"/> 
+                    <Route path="/films/nowplaying" component={Nowplaying} />
+                    <Route path="/films/comingsoon" component={Comingsoon} />
+                    <Redirect from="/films" to="/films/nowplaying" />
                 </Switch>
 
             </div>
