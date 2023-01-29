@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ClaseT from "./KerwinApp";
+import ClaseT from "./mglApp";
 import TestCss from "./TestCss";
 import Game from "./Game";
 import IsControler from "./IsControler";

@@ -1,7 +1,4 @@
-/*
- * @作者: kerwin
- * @公众号: 大前端私房菜
- */
+ 
 import React, { Component } from 'react'
 import axios from 'axios'
 import BScroll from 'better-scroll';
@@ -57,7 +54,7 @@ export default class Cinema extends Component {
             overflow: "hidden",
           }}
         >
-          <div className="kerwincontent">
+          <div className="mglcontent">
             {this.getCinemaList().map((item) => (
               <dl key={item.cinemaId}>
                 <dt>{item.name}</dt>

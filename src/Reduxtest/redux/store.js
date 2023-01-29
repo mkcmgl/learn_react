@@ -1,7 +1,4 @@
-/*
- * @作者: kerwin
- * @公众号: 大前端私房菜
- */
+ 
 
  //1. 引入redux, 
  //2. createStore( reducer )
@@ -27,7 +24,7 @@
   store.getState
  */
 
-//  function createKerwinStore(reducer){
+//  function createmglStore(reducer){
 //    var list = []
 //    var state = reducer(undefined,{})
 //    function subscribe(callback){
@@ -57,7 +54,7 @@
 
  /*
    var obj = {
-     myname:"kerwin"
+     myname:"mgl"
    }
    function test(obj2){
      var newobj = {...obj2}

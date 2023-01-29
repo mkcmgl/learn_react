@@ -1,7 +1,4 @@
-/*
- * @作者: kerwin
- * @公众号: 大前端私房菜
- */
+ 
 import React, { Component } from 'react'
 import { HashRouter as Router,Redirect,Route,Switch,BrowserRouter} from 'react-router-dom'
 import Films from '../pages/Films'
@@ -31,7 +28,7 @@ export default class IndexRouter extends Component {
                     {/* <Route path="/center" component={Center} /> */}
                     <Route path="/center" render={(props)=>{
                         // console.log(props)
-                        return isAuth() ? <Center myname="kerwin" {...props} />:<Redirect to="/login"/>
+                        return isAuth() ? <Center myname="mgl" {...props} />:<Redirect to="/login"/>
                     }}/>
 
                     <Route path="/login" component={Login}/>

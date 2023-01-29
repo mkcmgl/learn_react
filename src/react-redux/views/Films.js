@@ -1,7 +1,4 @@
-/*
- * @作者: kerwin
- * @公众号: 大前端私房菜
- */
+
 import React, { Component } from 'react'
 import Nowplaying from './films/Nowplaying'
 import Comingsoon from './films/Comingsoon'
@@ -18,10 +15,10 @@ export default class Films extends Component {
 
                 <ul>
                     <li>
-                        <NavLink to="/films/nowplaying" activeClassName={style.kerwinactive}>正在热映</NavLink>
+                        <NavLink to="/films/nowplaying" activeClassName={style.mglactive}>正在热映</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/films/comingsoon" activeClassName={style.kerwinactive}>即将上映</NavLink>
+                        <NavLink to="/films/comingsoon" activeClassName={style.mglactive}>即将上映</NavLink>
                     </li>
                 </ul>
 

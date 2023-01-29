@@ -1,9 +1,9 @@
-.kerwinactive{
+.mglactive{
     border-bottom: 1px solid red;
     color:blue;
 }
 
-:global(#kerwin){
+:global(#mgl){
     background:red;
 }
 

@@ -1,7 +1,4 @@
-/*
- * @作者: kerwin
- * @公众号: 大前端私房菜
- */
+ 
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import stylem from '../css/Tabbar.module.css'
@@ -13,15 +10,15 @@ export default class Tabbar extends Component {
                     <ul>
                         <li>
                             {/* <a href="#/films"></a> */}
-                        <NavLink to="/films" activeClassName={stylem.kerwinactive}>电影</NavLink>
+                        <NavLink to="/films" activeClassName={stylem.mglactive}>电影</NavLink>
                         </li>
                         <li>
-                        <NavLink to="/cinemas" activeClassName={stylem.kerwinactive} onClick={() => {
+                        <NavLink to="/cinemas" activeClassName={stylem.mglactive} onClick={() => {
                             console.log("log", stylem)
                         }}>影院</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/center" activeClassName={stylem.kerwinactive}>我的</NavLink>
+                            <NavLink to="/center" activeClassName={stylem.mglactive}>我的</NavLink>
                         </li>
                     </ul>
                 </div>
