@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
     return {
         a: 1,
         b: 2,
-        isShow: state.TabbarReducer.show
+        isShow: state.TabbarReducer.get('show')
     }
 }
 export default connect(mapStateToProps)(App)
