@@ -9,7 +9,7 @@ import {
   } from 'antd-mobile-icons'
 import { withRouter } from 'react-router-dom'
   
-class mglTabbar extends Component {
+class MglTabbar extends Component {
     tabs = [
         {
           key: '/films',
@@ -43,4 +43,4 @@ class mglTabbar extends Component {
         )
     }
 }
-export default  withRouter(mglTabbar)
+export default withRouter(MglTabbar)

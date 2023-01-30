@@ -1,7 +1,7 @@
  
 import React, { Component } from 'react'
 import MRouter from './router/IndexRouter'
-import Tabbar from './components/Tabbar'
+import MglTabbar from './components/Tabbar'
 import './views/css/App.css'
 // import { Button } from 'antd-mobile'
 import './util/request'
@@ -19,7 +19,7 @@ class App extends Component {
                 {/* <Button color='danger'>click</Button> */}
                 {/* 其他的内容 */}
                 <MRouter>
-                    {this.props.isShow && <Tabbar></Tabbar>}
+                    {this.props.isShow && <MglTabbar></MglTabbar>}
                 </MRouter>
            </div>
         )

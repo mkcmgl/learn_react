@@ -41,8 +41,8 @@ export default class Films extends Component {
                 <Swiper autoplay={true} loop={true}>
                     {
                         this.state.looplist.map(item =>
-                            <Swiper.Item key={item.bannerId}>
-                                <img src={item.poster} alt={item.name} style={{ width: "100%" }} />
+                            <Swiper.Item key={item.filmId}>
+                                <img src={item.poster} alt={item.name} style={{ height: "300px",width:"100%" }} />
                             </Swiper.Item>
                         )
                     }
@@ -58,7 +58,8 @@ export default class Films extends Component {
                     </li>
                 </ul> */}
 
-                <div  style={{position:"sticky",top:0,background:"white"}}>
+                <div style={{
+                    position: "sticky", top: 0, background: "white",zIndex:999 }}>
                     <Tabs onChange={(value)=>{
                         // console.log(value)
 
