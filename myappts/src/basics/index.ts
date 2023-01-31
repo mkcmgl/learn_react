@@ -102,6 +102,102 @@ var name: string = obj.getName("aaaa")
 console.log(name)
 
 
+//---------------------------------
+class Bus {
+    public name = "mgl" //共有属性
+    private _list: any = [] //私有变量
 
+    protected age = 100
+    public subscribe(cb: any) {
+        this._list.push(cb)
+    }
+
+    public dispatch() {
+        this._list.forEach((cb: any) => {
+            cb && cb()
+        })
+    }
+}
+
+
+class Child extends Bus {
+
+    aaa() {
+        console.log(this.name, this.age)
+    }
+}
+
+var obj2 = new Bus()
+obj2.subscribe(() => {
+
+})
+
+console.log(obj2.name)
+//  obj._list = []
+//  console.log(obj._list)
+
+//---------------------------------
+
+interface Ifunc {
+    getName: () => string,
+    getAge: () => number
+}
+
+class A implements Ifunc {
+    getAge() {
+        return 100
+    }
+    a1() {
+
+    }
+
+    a2() {
+
+    }
+
+    getName() {
+        return "AAA"
+    }
+}
+
+class B implements Ifunc {
+    getAge() {
+        return 100
+    }
+    b1() {
+
+    }
+
+    b2() {
+
+    }
+
+    getName() {
+        return "CCC"
+    }
+}
+
+class C implements Ifunc {
+    getAge() {
+        return 100
+    }
+    getName() {
+        return "CCC"
+    }
+}
+
+function init(obj: Ifunc) {
+    obj.getName()
+    obj.getAge()
+}
+var objA = new A()
+var objB = new B()
+var objC = new C()
+
+init(objA)
+init(objB)
+init(objC)
+
+//---------------------------------
 
 export default {}
