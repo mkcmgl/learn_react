@@ -4,7 +4,7 @@ import { Toast } from 'antd-mobile'
 
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
-
+  //加载中
     Toast.show({
         icon: 'loading',
         content: '加载中…',

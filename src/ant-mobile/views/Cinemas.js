@@ -3,7 +3,7 @@ import React,{useEffect} from 'react'
 import getCinemaListAction from '../redux/actionCreator/getCinemaListAction'
 import {connect} from 'react-redux'
 
-import { NavBar } from 'antd-mobile'
+import { NavBar,Toast } from 'antd-mobile'
 import { SearchOutline } from 'antd-mobile-icons'
 
  function Cinemas(props) {
@@ -16,7 +16,11 @@ import { SearchOutline } from 'antd-mobile-icons'
             // actionCreator 里写异步
             // store.dispatch(getCinemaListAction())
 
-
+            Toast.show({
+                icon: 'loading',
+                content: '加载中',
+                duration: 3000
+            })
 
             getCinemaListAction()
         }
