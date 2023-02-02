@@ -7,26 +7,12 @@ import {
     NotificationOutlined,
     LaptopOutlined
 } from '@ant-design/icons';
+import { withRouter } from 'react-router-dom'
 import './index.css'
 
 
 const { Sider } = Layout;
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-    const key = String(index + 1);
-    return {
-        key: `sub${key}`,
-        icon: React.createElement(icon),
-        label: `subnav ${key}`,
-        children: new Array(4).fill(null).map((_, j) => {
-            const subKey = index * 4 + j + 1;
-            return {
-                key: subKey,
-                label: `option${subKey}`,
-            };
-        }),
-    };
-});
-console.log('item2', items2)
+
 const items = [
     {
         key: "/home",
@@ -63,7 +49,12 @@ const items = [
         ]
     }
 ]
-export default function SideMenu() {
+function SideMenu(props) {
+
+    const handlerClickMenu = (e) => {
+        props.history.push(e.key)
+    }
+
     return (
         <Sider trigger={null} collapsible collapsed={false}>
             <div className="logo" >后台管理系统</div>
@@ -74,7 +65,9 @@ export default function SideMenu() {
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 items={items}
+                onClick={handlerClickMenu}
             />
         </Sider>
     )
 }
+export default withRouter(SideMenu)
