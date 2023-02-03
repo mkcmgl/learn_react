@@ -1,0 +1,8 @@
+ul.ant-pagination.ant-table-pagination.ant-table-pagination-right.css-dev-only-do-not-override-ixblex {
+    margin: 8px 0 0 0;
+
+}
+
+:where(.css-dev-only-do-not-override-ixblex).ant-table-wrapper .ant-table-thead>tr>th, :where(.css-dev-only-do-not-override-ixblex).ant-table-wrapper .ant-table-tbody>tr>td, :where(.css-dev-only-do-not-override-ixblex).ant-table-wrapper tfoot>tr>th, :where(.css-dev-only-do-not-override-ixblex).ant-table-wrapper tfoot>tr>td{
+    padding: 12px 12px;
+}
