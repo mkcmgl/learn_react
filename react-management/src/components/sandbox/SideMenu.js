@@ -104,9 +104,13 @@ function SideMenu(props) {
     const handlerClickMenu = (e) => {
         props.history.push(e.key)
     }
+    const selectKeys = [props.location.pathname]
+    const openKeysRouter = ['/' + props.location.pathname.split("/")[1]]
+    const [openKeys, setOpenKeys] = useState(openKeysRouter);
 
-    const [openKeys, setOpenKeys] = useState(['/home']);
+
     const onOpenChange = (keys) => {
+        console.log("onOpenChange")
         const latestOpenKey = keys.find((key) => { 
             return openKeys.indexOf(key) === -1
         });
@@ -126,10 +130,12 @@ function SideMenu(props) {
         if (menu.findIndex(item => item.key === latestOpenKey) === -1) {
             setOpenKeys(keys);
         } else {
-            console.log(latestOpenKey)
             setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
         }
+        console.log("11", openKeys, keys);
     };
+
+    console.log(selectKeys, openKeysRouter, openKeys)
     return (
         <Sider trigger={null} collapsible collapsed={false}>
             <div style={{ display: "flex", height: "100%", "flexDirection": "column" }} >
@@ -138,12 +144,17 @@ function SideMenu(props) {
             <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={['/home']}
-                defaultOpenKeys={['/home']}
-                items={handlerMenu(menu)}
+                 
+                    items={handlerMenu(menu)}
+                    // defaultSelectedKeys={openKeys}
                     onClick={handlerClickMenu}
+
                     openKeys={openKeys}
                     onOpenChange={onOpenChange}
+
+                    defaultOpenKeys={openKeysRouter}
+
+                    selectedKeys={selectKeys}
                 />
                 </div>
         </Sider>
