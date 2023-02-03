@@ -110,7 +110,6 @@ function SideMenu(props) {
 
 
     const onOpenChange = (keys) => {
-        console.log("onOpenChange")
         const latestOpenKey = keys.find((key) => { 
             return openKeys.indexOf(key) === -1
         });
@@ -132,10 +131,8 @@ function SideMenu(props) {
         } else {
             setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
         }
-        console.log("11", openKeys, keys);
     };
 
-    console.log(selectKeys, openKeysRouter, openKeys)
     return (
         <Sider trigger={null} collapsible collapsed={false}>
             <div style={{ display: "flex", height: "100%", "flexDirection": "column" }} >
