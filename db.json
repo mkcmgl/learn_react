@@ -12,7 +12,7 @@
     {
       "username": "铁锤",
       "password": "123",
-      "roleState": true,
+      "roleState": false,
       "default": false,
       "region": "亚洲",
       "roleId": 2,
@@ -71,6 +71,15 @@
       "region": "亚洲",
       "roleId": 3,
       "id": 8
+    },
+    {
+      "username": "test更新test",
+      "password": "test",
+      "roleId": 1,
+      "region": "",
+      "roleState": true,
+      "default": false,
+      "id": 9
     }
   ],
   "roles": [
@@ -282,7 +291,7 @@
       "title": "审核新闻",
       "rightId": 21,
       "key": "/audit-manage/audit",
-      "pagepermisson": 0,
+      "pagepermisson": 1,
       "grade": 2
     },
     {
@@ -290,7 +299,7 @@
       "title": "审核列表",
       "rightId": 21,
       "key": "/audit-manage/list",
-      "pagepermisson": 0,
+      "pagepermisson": 1,
       "grade": 2
     },
     {
