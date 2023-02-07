@@ -5,13 +5,14 @@ import NewsEditor from '../../../components/news-manage/NewsEditor'
 
 import style from './News.module.css'
 import axios from 'axios'
+import UserFrom from '../../../components/user-manage/UserFrom'
 const { Step } = Steps;
 const { Option } = Select;
 
 
 
 
-export default function NewsAdd() {
+export default function NewsAdd(props) {
   const [current, setCurrent]=useState(0)
   const [categoryList, setCategoryList] = useState([])
   const [formInfo, setformInfo] = useState({})
@@ -19,7 +20,7 @@ export default function NewsAdd() {
 
   useEffect(() => { 
     axios.get('/categories').then((result) => {
-      console.log(result.data)
+      // console.log(result.data)
       setCategoryList(result.data)
     }).catch((err) => {
       console.log(`output categories->err`,err)
@@ -27,9 +28,25 @@ export default function NewsAdd() {
   },[])
 
 
+  const User = JSON.stringify(localStorage.getItem('token'))
+    
+  const handleSave = (auditState) => { 
+    axios.post('/news', {
+      ...formInfo,
+      "content": content,
+      "region": User.region ? UserFrom.region : "全球",
+      "author": User.username,
+      "roleId": User.roleId,
+      "auditState": auditState,
+      "publishState": 0,
+      "createTime": Date.now(),
+      "star": 0,
+      "view":0
 
-  const handleSave = () => { 
-
+    }).then(res => { 
+      // console.log(`output->res`,res)
+      props.history.push(auditState===0?"/news-manage/draft":"/audit-manage/list")
+    })
   }
   const handleNext = () => {
     if (current === 0) {
@@ -47,6 +64,7 @@ export default function NewsAdd() {
   }
 
   const handlePrevious = () => { 
+    // console.log("Previous", current)
     setCurrent(current - 1)
   }
 
@@ -57,7 +75,7 @@ export default function NewsAdd() {
     wrapperCol: { span: 20 },
   }
   const onFinish = (values) => {
-    console.log(values);
+    // console.log(values);
   };
 
    // 校验 todo
@@ -143,7 +161,7 @@ export default function NewsAdd() {
             </div>
             <div className={current === 1 ? "1" : style.active}>
               <NewsEditor getContent={(value) => {
-                console.log(value)
+                // console.log(value)
                 setContent(value)
               }}></NewsEditor>
             </div>
@@ -161,7 +179,7 @@ export default function NewsAdd() {
                 <Button danger style={{ marginRight: "20px" }} onClick={() => handleSave(1)}>提交审核</Button>
               </span>
             }{
-              current > 0 && <Button type='primary' style={{ marginRight: "20px" }} onClick={() => handlePrevious}>上一步</Button>
+              current > 0 && <Button type='primary' style={{ marginRight: "20px" }} onClick={ handlePrevious}>上一步</Button>
 
             }
             {
