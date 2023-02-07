@@ -13,6 +13,7 @@ function TopHeader(props) {
     const changeCollapsed = () => { 
         setCollapsed(!collapsed)
     }
+    const { role: { roleName }, username } = JSON.parse(localStorage.getItem("token"))
 
     const items = [
         {
@@ -20,7 +21,7 @@ function TopHeader(props) {
             label: (
                 <div>
            
-                    name
+                    {roleName}
                 </div>
             ),
         },
@@ -43,7 +44,7 @@ function TopHeader(props) {
             }
             <div style={{ float: 'right' }}>
                 <Space>
-                <span>欢迎admin回来</span>
+                    <span>欢迎<span style={{ fontWeight: "bold", color:'#1890ff' }}>{username}</span>回来</span>
                 <Dropdown
                     menu={{items}}
                 >

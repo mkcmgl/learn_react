@@ -21,14 +21,22 @@ export default function UserList() {
   const [current, setCurrent] = useState(null)
 
 
-
+  const { roleId, region, username } = JSON.parse(localStorage.getItem("token"))
 
 
   const getDataList = () => {
+    const roleObj = {
+      "1": "superadmin",
+      "2": "admin",
+      "3": "editor"
+    }
     axios.get("http://localhost:5000/users?_expand=role").then(res => {
       const list = res.data
-      // console.log(`regions-users`, list)
-      setDataSource(list)
+      console.log(`regions-users`, list)
+      setDataSource(roleObj[roleId] === "superadmin" ? list : [
+        ...list.filter(item => item.username === username),
+        ...list.filter(item => item.region === region && roleObj[item.roleId] === "editor")
+      ])
     })
   }
   const getReginList = () => {
@@ -59,6 +67,7 @@ export default function UserList() {
   }
 
   useEffect(() => {
+
     getDataList()
 
     getReginList()
@@ -284,7 +293,8 @@ export default function UserList() {
         }}
         onOk={() => updateFormOK()}
       >
-        <UserFrom regionList={regionList} roleList={roleList} ref={updateForm} isUpdateDisabled={isUpdateDisabled} />
+        <UserFrom regionList={regionList} roleList={roleList} ref={updateForm}
+          isUpdate={true}  isUpdateDisabled={isUpdateDisabled} />
       </Modal>
     </div>
   )

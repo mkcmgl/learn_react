@@ -1,12 +1,74 @@
 import React, { forwardRef, useEffect, useState } from 'react'
-import {   Modal,Form, Input, Select } from 'antd'
+import { Modal, Form, Input, Select } from 'antd'
+
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 const UserFrom = forwardRef((props, ref)=>{
     const [isDisabled, setIsDisabled] = useState(false)
     useEffect(() => {
         setIsDisabled(props.isUpdateDisabled)
+       
     }, [props.isUpdateDisabled])
+    
+    NProgress.start()
+    useEffect(() => {
+        NProgress.done()
+    })
 
+    const { roleId, region } = JSON.parse(localStorage.getItem("token"))
+    const roleObj = {
+        "1": "superadmin",
+        "2": "admin",
+        "3": "editor"
+    }
+    const checkRegionDisabled = (item) => {
+        if (props.isUpdate) {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return item.value !== region
+            }
+        }
+    }
+    const checkRoleDisabled = (item) => {
+        if (props.isUpdate) {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            if (roleObj[roleId] === "superadmin") {
+                return false
+            } else {
+                return roleObj[item.id] !== "editor"
+            }
+        }
+    }
+    // 控制角色能否显示
+    const handlerRoleList = () => { 
+          props.roleList.map(item => 
+             item.disabled = checkRoleDisabled(item)
+        )
+        console.log(`output->props.roleList`, props.roleList)
+        return props.roleList
+    }
+    // 控制区域能否显示
+    const handerRegionList = () => { 
+        props.regionList.map(item =>
+            item.disabled = checkRegionDisabled(item)
+        )
+        console.log(`output->`, props.regionList)
+        return props.regionList
+    }
   return (
+
 
       <Form
           ref={ref}
@@ -72,7 +134,7 @@ const UserFrom = forwardRef((props, ref)=>{
                 //   }
                   }
                       allowClear
-                      options={props.roleList}
+                  options={handlerRoleList()}
                   />
               </Form.Item>
 
@@ -90,8 +152,8 @@ const UserFrom = forwardRef((props, ref)=>{
               >
                   <Select
                   allowClear
-                  options={props.regionList}
-                  disabled={isDisabled }
+                  options={handerRegionList()}
+                  disabled={ isDisabled }
                   />
               </Form.Item>
 

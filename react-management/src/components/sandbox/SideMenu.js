@@ -53,7 +53,7 @@ function SideMenu(props) {
     const [menu, setMenu] = useState([])
     useEffect(() => { 
         axios.get("http://localhost:5000/rights?_embed=children").then((response) => {
-            console.log(response)
+            // console.log(response)
         //    response.data.forEach((items) => {
         //        items.children.forEach((children) => children.label = children.title)
         //        items.label = items.title
@@ -84,16 +84,27 @@ function SideMenu(props) {
         "/publish-manage": <UserOutlined />
         //.......
     }
+
+    const { role: { rights } } = JSON.parse(localStorage.getItem("token"))
+    //登陆检查
+
+    const checkPagePermission = (item) => {
+        // console.log("Checking ", item)
+        // console.log("permissions ", JSON.parse(localStorage.getItem("token")))
+        return item.pagepermisson && rights.includes(item.key)
+    }
+
+    
     const handlerMenu = (list) => {
         const arr = []
             list.map((item) => {
-                if (item.children && item.children.length !== 0) {
+                if (item.children && item.children.length !== 0 && checkPagePermission(item)) {
                     return arr.push(
                         obj(item.key, iconList[item.key], item.title, handlerMenu(item.children))
                     )
                 } else {
                     return (
-                        item.pagepermisson &&
+                        checkPagePermission(item) &&
                         arr.push(obj(item.key, iconList[item.key] , item.title))
                     )
                 }
