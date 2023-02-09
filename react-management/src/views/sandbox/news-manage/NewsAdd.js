@@ -5,7 +5,6 @@ import NewsEditor from '../../../components/news-manage/NewsEditor'
 
 import style from './News.module.css'
 import axios from 'axios'
-import UserFrom from '../../../components/user-manage/UserFrom'
 const { Step } = Steps;
 const { Option } = Select;
 
@@ -28,24 +27,25 @@ export default function NewsAdd(props) {
   },[])
 
 
-  const User = JSON.stringify(localStorage.getItem('token'))
+  const User= JSON.parse(localStorage.getItem('token'))
     
   const handleSave = (auditState) => { 
+    console.log(User.username,'test')
     axios.post('/news', {
       ...formInfo,
       "content": content,
-      "region": User.region ? UserFrom.region : "全球",
+      "region": User.region ? User.region : "全球",
       "author": User.username,
       "roleId": User.roleId,
       "auditState": auditState,
       "publishState": 0,
       "createTime": Date.now(),
       "star": 0,
-      "view":0
+      "view": 0,
 
     }).then(res => { 
-      // console.log(`output->res`,res)
-      props.history.push(auditState===0?"/news-manage/draft":"/audit-manage/list")
+      console.log(`output->res`,res)
+      // props.history.push(auditState===0?"/news-manage/draft":"/audit-manage/list")
     })
   }
   const handleNext = () => {
