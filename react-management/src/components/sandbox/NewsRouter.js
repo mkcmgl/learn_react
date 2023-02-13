@@ -52,7 +52,7 @@ export default function NewsRouter() {
     const {role:{rights}} = JSON.parse(localStorage.getItem("token"))
 
     const checkRoute = (item)=>{
-        return LocalRouterMap[item.key] && item.pagepermisson
+        return LocalRouterMap[item.key] && (item.pagepermisson || item.routepermisson)
     }
 
     const checkUserPermission = (item)=>{
