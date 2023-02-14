@@ -45,7 +45,13 @@ export default function NewsAdd(props) {
 
     }).then(res => { 
       console.log(`output->res`,res)
-      // props.history.push(auditState===0?"/news-manage/draft":"/audit-manage/list")
+      props.history.push(auditState===0?"/news-manage/draft":"/audit-manage/list")
+      notification.info({
+        message: `通知`,
+        description:
+          `您可以到${auditState === 0 ? '草稿箱' : '审核列表'}中查看您的新闻`,
+        placement: "bottomRight",
+      });
     })
   }
   const handleNext = () => {
