@@ -19,7 +19,12 @@ export default function NewsAdd(props) {
 
   useEffect(() => { 
     axios.get('/categories').then((result) => {
-      // console.log(result.data)
+      result.data.map(item => {
+        item.label =item.title
+        item.value=item.id
+        return item
+      }
+      )
       setCategoryList(result.data)
     }).catch((err) => {
       console.log(`output categories->err`,err)
@@ -30,7 +35,7 @@ export default function NewsAdd(props) {
   const User= JSON.parse(localStorage.getItem('token'))
     
   const handleSave = (auditState) => { 
-    console.log(User.username,'test')
+    console.log(User.username, 'test', formInfo)
     axios.post('/news', {
       ...formInfo,
       "content": content,

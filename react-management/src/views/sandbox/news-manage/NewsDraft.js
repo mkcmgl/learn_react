@@ -37,7 +37,19 @@ export default function NewsDraft(props) {
     axios.delete(`/news/${item.id}`)
     getDataSouce()
   }
-  const handleCheck = () => { }
+  const handleCheck = (id) => {
+    axios.patch(`/news/${id}`, { 
+      auditState:1
+    }).then((res) => { 
+      console.log(`output->res`,res)
+      props.history.push('/audit-manage/list')
+      notification.info({
+        message: '通知',
+        description: `您可以到${'审核列表'}中查看您的新闻`,
+        placement:"bottomRight"
+      })
+    })
+   }
   const columns = [
     {
       title: 'ID',
@@ -58,10 +70,10 @@ export default function NewsDraft(props) {
     },
     {
       title: '分类',
-      dataIndex: 'categoryId',
-      // render: (category) => {
-      //   return category.title
-      // }
+      dataIndex: 'category',
+      render: (category) => {
+        return <div>{category.title}</div>
+      }
     },
     {
       title: "操作",
