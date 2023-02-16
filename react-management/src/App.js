@@ -24,7 +24,7 @@
 
 import React from 'react'
 import IndexRouter from './router'; 
-import { store, persistor } from './redux/store';
+import { store, persistor  } from './redux/store';
 import { PersistGate } from "redux-persist/integration/react"
 import { Provider } from 'react-redux'
 import './App.css'

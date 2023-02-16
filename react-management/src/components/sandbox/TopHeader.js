@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import { Layout, Dropdown, Space, Avatar } from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined
 } from '@ant-design/icons';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import {  UserOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 const { Header } = Layout;
 
 function TopHeader(props) {
-    const [collapsed,setCollapsed] = useState(false)
     const changeCollapsed = () => { 
-        setCollapsed(!collapsed)
+        props.changeCollapsed()
     }
     const { role: { roleName }, username } = JSON.parse(localStorage.getItem("token"))
 
@@ -39,7 +39,7 @@ function TopHeader(props) {
     return (
         <Header className="site-layout-background" style={{ padding:' 0 16px '}}>
             {
-                collapsed ? <MenuUnfoldOutlined onClick={changeCollapsed} /> :
+                props.isCollapsed ? <MenuUnfoldOutlined onClick={changeCollapsed} /> :
                     <MenuFoldOutlined onClick = { changeCollapsed } />
             }
             <div style={{ float: 'right' }}>
@@ -60,4 +60,17 @@ function TopHeader(props) {
 
     )
 }
-export default withRouter(TopHeader)
+
+const mapStateToProps = ({ CollApsedReducer: { isCollapsed } }) => { 
+    return {
+        isCollapsed
+    }
+}
+const mapDispatchToProps = {
+    changeCollapsed() { 
+        return {
+            type:'change_collapsed',
+        }
+}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TopHeader))
