@@ -24,10 +24,17 @@
 
 import React from 'react'
 import IndexRouter from './router'; 
-
+import { store, persistor } from './redux/store';
+import { PersistGate } from "redux-persist/integration/react"
+import { Provider } from 'react-redux'
+import './App.css'
 function App() {
   return (
-      <IndexRouter></IndexRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <IndexRouter></IndexRouter>
+      </PersistGate>
+    </Provider>
   )
 }
 
