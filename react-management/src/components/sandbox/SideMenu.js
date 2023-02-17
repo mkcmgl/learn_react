@@ -10,6 +10,7 @@ import {
 import { withRouter } from 'react-router-dom'
 import './index.css'
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 const { Sider } = Layout;
 
@@ -51,21 +52,21 @@ const { Sider } = Layout;
 // ]
 function SideMenu(props) {
     const [menu, setMenu] = useState([])
-    useEffect(() => { 
+    useEffect(() => {
         axios.get("http://localhost:5000/rights?_embed=children").then((response) => {
             // console.log(response)
-        //    response.data.forEach((items) => {
-        //        items.children.forEach((children) => children.label = children.title)
-        //        items.label = items.title
-        //         if (items.id === 1) { 
-        //             items.label = items.title
-        //             items.children=''
-                    
-        //         }
-        //     })
+            //    response.data.forEach((items) => {
+            //        items.children.forEach((children) => children.label = children.title)
+            //        items.label = items.title
+            //         if (items.id === 1) { 
+            //             items.label = items.title
+            //             items.children=''
+
+            //         }
+            //     })
             setMenu(response.data)
-         })
-    },[])
+        })
+    }, [])
     const obj = (key, icon, label, children) => {
         return {
             key,
@@ -94,22 +95,22 @@ function SideMenu(props) {
         return item.pagepermisson && rights.includes(item.key)
     }
 
-    
+
     const handlerMenu = (list) => {
         const arr = []
-            list.map((item) => {
-                if (item.children && item.children.length !== 0 && checkPagePermission(item)) {
-                    return arr.push(
-                        obj(item.key, iconList[item.key], item.title, handlerMenu(item.children))
-                    )
-                } else {
-                    return (
-                        checkPagePermission(item) &&
-                        arr.push(obj(item.key, iconList[item.key] , item.title))
-                    )
-                }
-            })
-       
+        list.map((item) => {
+            if (item.children && item.children.length !== 0 && checkPagePermission(item)) {
+                return arr.push(
+                    obj(item.key, iconList[item.key], item.title, handlerMenu(item.children))
+                )
+            } else {
+                return (
+                    checkPagePermission(item) &&
+                    arr.push(obj(item.key, iconList[item.key], item.title))
+                )
+            }
+        })
+
         return arr
     }
     const handlerClickMenu = (e) => {
@@ -121,18 +122,18 @@ function SideMenu(props) {
 
 
     const onOpenChange = (keys) => {
-        const latestOpenKey = keys.find((key) => { 
+        const latestOpenKey = keys.find((key) => {
             return openKeys.indexOf(key) === -1
         });
         // console.log(latestOpenKey)
         // console.log(keys,'keys')
         // console.log(menu.find(item => latestOpenKey === item.key), '11')
-        
-    //    let index= menu.findIndex(item => {
-    //         console.log(`output->`, item.key,latestOpenKey)
-    //        return item.key === latestOpenKey
-    //    })
-        
+
+        //    let index= menu.findIndex(item => {
+        //         console.log(`output->`, item.key,latestOpenKey)
+        //        return item.key === latestOpenKey
+        //    })
+
         // console.log(menu.filter(item => latestOpenKey === item.key), '22')
         // console.log(`output->index`, index)
         // console.log(openKeys)
@@ -145,14 +146,14 @@ function SideMenu(props) {
     };
 
     return (
-        <Sider trigger={null} collapsible collapsed={false}>
+        <Sider trigger={null} collapsible collapsed={props.isCollapsed}>
             <div style={{ display: "flex", height: "100%", "flexDirection": "column" }} >
-            <div className="logo" >后台管理系统</div>
+                {!props.isCollapsed && <div className="logo" >后台管理系统</div>}
 
-            <Menu
-                theme="dark"
-                mode="inline"
-                 
+                <Menu
+                    theme="dark"
+                    mode="inline"
+
                     items={handlerMenu(menu)}
                     // defaultSelectedKeys={openKeys}
                     onClick={handlerClickMenu}
@@ -164,8 +165,15 @@ function SideMenu(props) {
 
                     selectedKeys={selectKeys}
                 />
-                </div>
+            </div>
         </Sider>
     )
 }
-export default withRouter(SideMenu)
+const mapStateToProps = ({ CollApsedReducer: { isCollapsed } }) => {
+    return {
+        isCollapsed
+    }
+}
+
+
+export default connect(mapStateToProps)(withRouter(SideMenu))
