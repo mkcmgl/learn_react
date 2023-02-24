@@ -1,3 +1,19 @@
+## Start react management
+```bash
+# 克隆项目
+git clone 
+# 进入项目目录,安装json-server,启动接口服务
+npm i json-server
+json-server --watch ./db.json --port 5000
+# 进入management项目
+cd react-management
+# 安装依赖
+npm i
+#启动项目
+npm run start
+```
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
